@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { signal } from '@angular/core';
+import { signal, effect } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -11,14 +11,25 @@ import { signal } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-signals-example';
+
   theme = signal('light'); // signal to hold the current theme
+  label = this.theme(); // signal to hold the label for the button
 
-  ngOnInit() {
+  // ngOnInit() {
+  //   // this.theme.set('dark'); // set the initial theme to dark
+  //   this.theme.update(currentTheme => currentTheme === 'light' ? 'dark' : 'light'); // toggle the theme
+  //   document.body.className = this.theme(); // set the initial theme on body
+  // }
 
-    // this.theme.set('dark'); // set the initial theme to dark
 
-    this.theme.update(currentTheme => currentTheme === 'light' ? 'dark' : 'light'); // toggle the theme
-
-    document.body.className = this.theme(); // set the initial theme on body
+  constructor() {
+    effect(() => {
+      this.label = this.theme();
+    });
   }
+
+  toggleDarkMode() {
+    this.theme.update(currentTheme => currentTheme === 'light' ? 'dark' : 'light'); // toggle the theme
+  }
+
 }
