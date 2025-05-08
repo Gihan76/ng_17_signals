@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { signal } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -10,4 +11,9 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'angular-signals-example';
+  theme = signal('light'); // signal to hold the current theme
+
+  ngOnInit() {
+    document.body.className = this.theme(); // set the initial theme on body
+  }
 }
