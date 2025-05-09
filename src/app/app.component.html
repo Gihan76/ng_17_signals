@@ -1,3 +1,13 @@
-<label>{{totalPrice()}}</label>
+<div>
+  <input type="text" (input)="changeFilter($event)" />
+</div>
 <br>
-<input type="number" value="{{quantity()}}" (change)="changeQuantity($event)"/>
+<table>
+  <tbody>
+  <tr *ngFor="let product of filteredProducts()">
+    <td>{{product.id}}</td>
+    <td>{{product.name}}</td>
+    <td>{{product.price}}</td>
+  </tr>
+  </tbody>
+</table>
