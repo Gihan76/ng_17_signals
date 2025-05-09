@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { signal, effect } from '@angular/core';
+import { signal, computed } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -12,24 +12,12 @@ import { signal, effect } from '@angular/core';
 export class AppComponent {
   title = 'angular-signals-example';
 
-  theme = signal('light'); // signal to hold the current theme
-  label = this.theme(); // signal to hold the label for the button
+  price = 19;
+  quantity = signal(10); // signal to hold the quantity
+  totalPrice = computed(() => this.price * this.quantity()); // computed signal to calculate the total price (works as an effect)
 
-  // ngOnInit() {
-  //   // this.theme.set('dark'); // set the initial theme to dark
-  //   this.theme.update(currentTheme => currentTheme === 'light' ? 'dark' : 'light'); // toggle the theme
-  //   document.body.className = this.theme(); // set the initial theme on body
-  // }
-
-
-  constructor() {
-    effect(() => {
-      this.label = this.theme();
-    });
-  }
-
-  toggleDarkMode() {
-    this.theme.update(currentTheme => currentTheme === 'light' ? 'dark' : 'light'); // toggle the theme
+  changeQuantity(event: Event) {
+    this.quantity.set((event.target as HTMLInputElement).valueAsNumber);
   }
 
 }
