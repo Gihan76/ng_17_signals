@@ -1,13 +1,2 @@
-<div>
-  <input type="text" (input)="changeFilter($event)" />
-</div>
-<br>
-<table>
-  <tbody>
-  <tr *ngFor="let product of filteredProducts()">
-    <td>{{product.id}}</td>
-    <td>{{product.name}}</td>
-    <td>{{product.price}}</td>
-  </tr>
-  </tbody>
-</table>
+<h1>Prodcuts</h1>
+<product-list [products]="allProducts"></product-list>
